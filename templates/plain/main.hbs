@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{raml.title}}</title>
+  <script type="text/javascript" src="{{options.protocol}}://code.jquery.com/jquery-1.11.2.min.js"></script>
+</head>
+<style>
+{{> main.css }}
+</style>
+<body>
+<div class="container">
+{{#raml}}
+  <h1>{{title}}</h1>
+
+  <dl>
+    {{#baseUri}}
+      <dt>Base URI</dt><dd><a href="{{.}}">{{.}}</a></dd>
+    {{/baseUri}}
+    {{#version}}
+      <dt>Version</dt><dd>{{.}}</dd>
+    {{/version}}
+    {{#if protocols}}
+      <dt>Protocols</dt><dd>{{#each protocols}}{{#if @index}}, {{/if}}{{.}}{{/each}}</dd>
+    {{/if}}
+  </dl>
+
+  <ul>
+    {{#documentation}}
+      <li><a href="#{_id}">{{title}}</a>
+    {{/documentation}}
+    {{#if securitySchemes}}
+      <li>
+        <p><a href="#security-schemes">Security schemes</a></p>
+        <ul>
+          {{#securitySchemes}}
+            <li><a href="#{{_id}}">Scheme {{type}}</a></li>
+          {{/securitySchemes}}
+        </ul>
+      </li>
+    {{/if}}
+    {{#each ../toc}}
+      <li>
+        <p><a href="#{{id}}">{{#if name}}{{name}}{{else}}{{relativeUri}}{{/if}}</a></p>
+        <ul>
+          {{#each methods}}
+            <li><a href="#{{id}}">{{#if name}}{{name}}{{else}}{{toUpperCase method}} {{relativeUri}}{{/if}}</a></li>
+          {{/each}}
+          {{#each resources}}
+          {{#each methods}}
+            <li><a href="#{{id}}">{{#if name}}{{name}}{{else}}{{toUpperCase method}} {{relativeUri}}{{/if}}</a></li>
+          {{/each}}
+          {{/each}}
+        </ul>
+      </li>
+    {{/each}}
+  </ul>
+
+  {{#documentation}}
+    <h2 id="{{_id}}">{{title}}</h2>
+    {{md content}}
+  {{/documentation}}
+
+  {{#if securitySchemes}}
+    <h2 id="security-schemes">Security schemes</h2>
+    {{#securitySchemes}}
+      <h3 id="{{_id}}">Scheme {{type}}</h3>
+      {{md description}}
+      {{#describedBy}}
+        {{#if headers}}
+          <h5>Headers</h5>
+          <ul>
+            {{#each headers}}
+              {{> item.hbs }}
+            {{/each}}
+          </ul>
+        {{/if}}
+        {{#responses}}
+          <h4>Response: {{code}} {{toStatusCode code}}</h4>
+          {{md description}}
+          {{#if headers}}
+            <h5>Headers</h5>
+            <ul>
+              {{#each headers}}
+                {{> item.hbs }}
+              {{/each}}
+            </ul>
+          {{/if}}
+          {{#each body}}
+            {{~> body.hbs ~}}
+          {{/each}}
+        {{/responses}}
+      {{/describedBy}}
+    {{/securitySchemes}}
+  {{/if}}
+
+  {{#if resources}}
+  {{#each resources}}
+    <h2 id={{_id}}>{{#if displayName}}{{displayName}}{{else}}{{relativeUri}}{{/if}}</h2>
+    {{md description}}
+    {{~> resource.hbs ~}}
+  {{/each}}
+  {{/if}}
+
+{{/raml}}
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var links = $('a.show-me-code');
+    links.parent().next().hide();
+    links.click(function() {
+      $(this).parent().next().toggle();
+      return false;
+    });
+  });
+</script>
+</body>
+</html>

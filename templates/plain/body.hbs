@@ -1,0 +1,21 @@
+<h5>Type <strong>{{@key}}</strong></h5>
+
+<ul>
+  {{#if formParameters}}
+    {{#each formParameters}}
+      {{> item.hbs }}
+    {{/each}}
+  {{/if}}
+  {{#if schema}}
+  <li>
+    <p><a class="show-me-code" href="#">Schema</a></p>
+    <pre><code>{{schema}}</code></pre>
+  </li>
+  {{/if}}
+  {{#if example}}
+  <li>
+    <p><a class="show-me-code" href="#">Example</a></p>
+    <pre><code>{{example}}</code></pre>
+  </li>
+{{/if}}
+</ul>

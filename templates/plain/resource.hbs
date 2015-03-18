@@ -1,0 +1,73 @@
+{{#each methods}}
+  <h3 id="{{_id}}">{{#if displayName}}{{displayName}}{{else}}{{toUpperCase method}} {{../../_relativeUri}}{{/if}}</h3>
+  {{md description}}
+
+  <h4>Request</h4>
+  <pre><code>{{toUpperCase method}} {{../_relativeUri}}</code></pre>
+
+  {{#if securedBy}}
+    <h5>Авторизация</h5>
+    <ul>
+    {{#each securedBy}}
+      <li><a href="#{{_id}}">{{type}}</a></li>
+    {{/each}}
+    </ul>
+  {{/if}}
+
+  {{#if ../_uriParameters}}
+  <h5>URI Parameters</h5>
+  <ul>
+    {{#each ../../_uriParameters}}
+    {{#each this}}
+      {{~> item.hbs ~}}
+    {{/each}}
+    {{/each}}
+  </ul>
+  {{/if}}
+
+  {{#if headers}}
+  <h5>Headers</h5>
+  <ul>
+    {{#each headers}}
+      {{~> item.hbs ~}}
+    {{/each}}
+  </ul>
+  {{/if}}
+
+  {{#if queryParameters}}
+  <h5>Query Parameters</h5>
+  <ul>
+    {{#each queryParameters}}
+      {{~> item.hbs ~}}
+    {{/each}}
+  </ul>
+  {{/if}}
+
+  {{#if body}}
+    {{#each this.body}}
+      {{> body.hbs }}
+    {{/each}}
+  {{/if}}
+
+  {{#responses}}
+    <h4>Response: {{code}} {{toStatusCode code}}</h4>
+    {{md description}}
+    {{#if this.headers}}
+      <h5>Headers</h5>
+      <ul>
+        {{#each headers}}
+          {{~> item.hbs ~}}
+        {{/each}}
+      </ul>
+    {{/if}}
+    {{#if this.body}}
+    {{#each this.body}}
+      {{~> body.hbs ~}}
+    {{/each}}
+    {{/if}}
+  {{/responses}}
+{{/each}}
+
+{{#resources}}
+  {{~> resource.hbs ~}}
+{{/resources}}

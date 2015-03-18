@@ -1,0 +1,27 @@
+{
+  "name": "ramldoc",
+  "version": "0.0.1",
+  "description": "raml documentation tool",
+  "keyword": [
+    "raml",
+    "documentation"
+  ],
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "bin": {
+    "ramldoc": "./bin/ramldoc.js"
+  },
+  "dependencies": {
+    "extend": "^2.0.0",
+    "handlebars": "^3.0.0",
+    "marked": "^0.3.3",
+    "raml-parser": "^0.8.10",
+    "yargs": "^3.5.4"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-jshint": "^1.9.2",
+    "gulp-mocha": "^2.0.0",
+    "jshint-stylish": "^1.0.1"
+  }
+}
