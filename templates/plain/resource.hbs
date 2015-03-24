@@ -6,7 +6,7 @@
   <pre><code>{{toUpperCase method}} {{../_relativeUri}}</code></pre>
 
   {{#if securedBy}}
-    <h5>Авторизация</h5>
+    <p>Secured by</p>
     <ul>
     {{#each securedBy}}
       <li><a href="#{{_id}}">{{type}}</a></li>
@@ -15,7 +15,7 @@
   {{/if}}
 
   {{#if ../_uriParameters}}
-  <h5>URI Parameters</h5>
+  <p>URI Parameters</p>
   <ul>
     {{#each ../../_uriParameters}}
     {{#each this}}
@@ -26,7 +26,7 @@
   {{/if}}
 
   {{#if headers}}
-  <h5>Headers</h5>
+  <p>Headers</p>
   <ul>
     {{#each headers}}
       {{~> item.hbs ~}}
@@ -35,7 +35,7 @@
   {{/if}}
 
   {{#if queryParameters}}
-  <h5>Query Parameters</h5>
+  <p>Query Parameters</p>
   <ul>
     {{#each queryParameters}}
       {{~> item.hbs ~}}
@@ -53,7 +53,7 @@
     <h4>Response: {{code}} {{toStatusCode code}}</h4>
     {{md description}}
     {{#if this.headers}}
-      <h5>Headers</h5>
+      <p>Headers</p>
       <ul>
         {{#each headers}}
           {{~> item.hbs ~}}
