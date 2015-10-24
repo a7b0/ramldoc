@@ -7,7 +7,7 @@
     "documentation"
   ],
   "license": "MIT",
-  "main": "./lib/index.js",
+  "main": "./index.js",
   "bin": {
     "ramldoc": "./bin/ramldoc.js"
   },
